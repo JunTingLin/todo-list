@@ -27,14 +27,14 @@
 
 **目的**: 專案初始化與基本結構建立
 
-- [ ] T001 建立專案目錄結構: src/, tests/, config/, docker/
-- [ ] T002 使用 Poetry 初始化 Python 專案: 建立 pyproject.toml 並指定 Python 3.11+ 需求
-- [ ] T003 [P] 設定 Poetry 虛擬環境於專案內: poetry config virtualenvs.in-project true
-- [ ] T004 [P] 新增核心依賴套件至 pyproject.toml: fastapi, uvicorn, pydantic, prometheus-client, structlog
-- [ ] T005 [P] 新增測試依賴套件至 pyproject.toml: pytest, pytest-cov, pytest-asyncio, httpx
-- [ ] T006 安裝所有依賴套件: poetry install
-- [ ] T007 建立 pytest 配置檔 pytest.ini，包含測試探索與覆蓋率設定
-- [ ] T008 建立 .gitignore 檔案，包含 Python、Poetry 與 IDE 忽略模式
+- [x] T001 建立專案目錄結構: src/, tests/, config/, docker/
+- [x] T002 使用 Poetry 初始化 Python 專案: 建立 pyproject.toml 並指定 Python 3.11+ 需求
+- [x] T003 [P] 設定 Poetry 虛擬環境於專案內: poetry config virtualenvs.in-project true
+- [x] T004 [P] 新增核心依賴套件至 pyproject.toml: fastapi, uvicorn, pydantic, prometheus-client, structlog
+- [x] T005 [P] 新增測試依賴套件至 pyproject.toml: pytest, pytest-cov, pytest-asyncio, httpx
+- [x] T006 安裝所有依賴套件: poetry install
+- [x] T007 建立 pytest 配置檔 pytest.ini，包含測試探索與覆蓋率設定
+- [x] T008 建立 .gitignore 檔案，包含 Python、Poetry 與 IDE 忽略模式
 
 ---
 
@@ -44,13 +44,13 @@
 
 **⚠️ 關鍵**: 此階段完成前，無法開始任何使用者故事的工作
 
-- [ ] T009 建立 Todo Pydantic 模型於 src/models/todo.py: TodoCreate, TodoUpdate, TodoResponse 及驗證規則
-- [ ] T010 [P] 建立請求 ID 中介軟體於 src/middleware/request_id.py: 產生或提取 X-Request-ID 標頭
-- [ ] T011 [P] 設定 structlog 於 src/middleware/logging.py: JSON 格式化器、時間戳記、request_id 綁定
-- [ ] T012 [P] 設定 Prometheus 指標於 src/middleware/metrics.py: http_requests_total 計數器與 http_request_duration_seconds 直方圖
-- [ ] T013 建立記憶體儲存於 src/storage/memory.py: TodoStore 類別，使用執行緒安全的 dict 與 Lock
-- [ ] T014 建立 FastAPI 應用程式入口點於 src/main.py: 應用程式初始化與中介軟體註冊
-- [ ] T015 建立基本測試固件於 tests/conftest.py: FastAPI TestClient 固件與儲存重置固件
+- [x] T009 建立 Todo Pydantic 模型於 src/models/todo.py: TodoCreate, TodoUpdate, TodoResponse 及驗證規則
+- [x] T010 [P] 建立請求 ID 中介軟體於 src/middleware/request_id.py: 產生或提取 X-Request-ID 標頭
+- [x] T011 [P] 設定 structlog 於 src/middleware/logging.py: JSON 格式化器、時間戳記、request_id 綁定
+- [x] T012 [P] 設定 Prometheus 指標於 src/middleware/metrics.py: http_requests_total 計數器與 http_request_duration_seconds 直方圖
+- [x] T013 建立記憶體儲存於 src/storage/memory.py: TodoStore 類別，使用執行緒安全的 dict 與 Lock
+- [x] T014 建立 FastAPI 應用程式入口點於 src/main.py: 應用程式初始化與中介軟體註冊
+- [x] T015 建立基本測試固件於 tests/conftest.py: FastAPI TestClient 固件與儲存重置固件
 
 **檢查點**: 基礎設施就緒 - 使用者故事實作現在可以並行開始
 
@@ -66,33 +66,33 @@
 
 > **憲章要求: 測試先行** - 以下測試必須在實作前撰寫,並驗證測試失敗(紅燈階段)
 
-- [ ] T016 [P] [US1] 撰寫 POST /todos 契約測試於 tests/contract/test_todo_api.py: 驗證 201 狀態、回應架構、預設 completed=false
-- [ ] T017 [P] [US1] 撰寫 GET /todos 契約測試於 tests/contract/test_todo_api.py: 驗證 200 狀態、陣列回應、無待辦事項時回傳空陣列
-- [ ] T018 [P] [US1] 撰寫 GET /todos/{id} 契約測試於 tests/contract/test_todo_api.py: 驗證 200 狀態、單一待辦事項回應、不存在時回傳 404
-- [ ] T019 [P] [US1] 撰寫 PUT /todos/{id} 契約測試於 tests/contract/test_todo_api.py: 驗證 200 狀態、更新後回應、不存在時回傳 404
-- [ ] T020 [P] [US1] 撰寫 DELETE /todos/{id} 契約測試於 tests/contract/test_todo_api.py: 驗證 204 狀態、不存在時回傳 404
-- [ ] T021 [P] [US1] 撰寫完整待辦事項生命週期整合測試於 tests/integration/test_todo_lifecycle.py: 建立 → 讀取 → 更新 → 刪除流程
-- [ ] T022 [P] [US1] 撰寫 TodoStore 單元測試於 tests/unit/test_storage.py: create, get, list_all, update, delete 方法
-- [ ] T023 [P] [US1] 撰寫 Todo 模型單元測試於 tests/unit/test_models.py: 驗證規則 (標題必填、最小/最大長度、空字串)
+- [x] T016 [P] [US1] 撰寫 POST /todos 契約測試於 tests/contract/test_todo_api.py: 驗證 201 狀態、回應架構、預設 completed=false
+- [x] T017 [P] [US1] 撰寫 GET /todos 契約測試於 tests/contract/test_todo_api.py: 驗證 200 狀態、陣列回應、無待辦事項時回傳空陣列
+- [x] T018 [P] [US1] 撰寫 GET /todos/{id} 契約測試於 tests/contract/test_todo_api.py: 驗證 200 狀態、單一待辦事項回應、不存在時回傳 404
+- [x] T019 [P] [US1] 撰寫 PUT /todos/{id} 契約測試於 tests/contract/test_todo_api.py: 驗證 200 狀態、更新後回應、不存在時回傳 404
+- [x] T020 [P] [US1] 撰寫 DELETE /todos/{id} 契約測試於 tests/contract/test_todo_api.py: 驗證 204 狀態、不存在時回傳 404
+- [x] T021 [P] [US1] 撰寫完整待辦事項生命週期整合測試於 tests/integration/test_todo_lifecycle.py: 建立 → 讀取 → 更新 → 刪除流程
+- [x] T022 [P] [US1] 撰寫 TodoStore 單元測試於 tests/unit/test_storage.py: create, get, list_all, update, delete 方法
+- [x] T023 [P] [US1] 撰寫 Todo 模型單元測試於 tests/unit/test_models.py: 驗證規則 (標題必填、最小/最大長度、空字串)
 
 **TDD 檢查點**: 執行 pytest - 所有測試應該失敗 (紅燈)。這證明測試是有效的。
 
 ### User Story 1 實作
 
-- [ ] T024 [US1] 實作 TodoStore.create() 於 src/storage/memory.py: 執行緒安全的 ID 產生與儲存
-- [ ] T025 [US1] 實作 TodoStore.get() 於 src/storage/memory.py: 透過 ID 取得待辦事項，具備執行緒安全
-- [ ] T026 [US1] 實作 TodoStore.list_all() 於 src/storage/memory.py: 回傳所有待辦事項，具備執行緒安全
-- [ ] T027 [US1] 實作 TodoStore.update() 於 src/storage/memory.py: 更新現有待辦事項，具備執行緒安全
-- [ ] T028 [US1] 實作 TodoStore.delete() 於 src/storage/memory.py: 移除待辦事項，具備執行緒安全
-- [ ] T029 建立待辦事項 API 路由器於 src/api/todos.py: 初始化 APIRouter 並指定 /todos 前綴
-- [ ] T030 [US1] 實作 POST /todos 端點於 src/api/todos.py: 驗證 TodoCreate、呼叫儲存、回傳 201 與 TodoResponse
-- [ ] T031 [US1] 實作 GET /todos 端點於 src/api/todos.py: 取得所有待辦事項、回傳 200 與陣列
-- [ ] T032 [US1] 實作 GET /todos/{id} 端點於 src/api/todos.py: 取得單一待辦事項、回傳 200 或 404
-- [ ] T033 [US1] 實作 PUT /todos/{id} 端點於 src/api/todos.py: 更新待辦事項、回傳 200 或 404
-- [ ] T034 [US1] 實作 DELETE /todos/{id} 端點於 src/api/todos.py: 刪除待辦事項、回傳 204 或 404
-- [ ] T035 [US1] 註冊待辦事項路由器於 src/main.py: app.include_router(todos.router)
-- [ ] T036 [US1] 新增待辦事項端點錯誤處理於 src/api/todos.py: 針對 400、404、500 使用 HTTPException
-- [ ] T037 [US1] 驗證 Pydantic 驗證錯誤於 src/api/todos.py: 確保無效輸入回傳友善的錯誤訊息
+- [x] T024 [US1] 實作 TodoStore.create() 於 src/storage/memory.py: 執行緒安全的 ID 產生與儲存
+- [x] T025 [US1] 實作 TodoStore.get() 於 src/storage/memory.py: 透過 ID 取得待辦事項，具備執行緒安全
+- [x] T026 [US1] 實作 TodoStore.list_all() 於 src/storage/memory.py: 回傳所有待辦事項，具備執行緒安全
+- [x] T027 [US1] 實作 TodoStore.update() 於 src/storage/memory.py: 更新現有待辦事項，具備執行緒安全
+- [x] T028 [US1] 實作 TodoStore.delete() 於 src/storage/memory.py: 移除待辦事項，具備執行緒安全
+- [x] T029 建立待辦事項 API 路由器於 src/api/todos.py: 初始化 APIRouter 並指定 /todos 前綴
+- [x] T030 [US1] 實作 POST /todos 端點於 src/api/todos.py: 驗證 TodoCreate、呼叫儲存、回傳 201 與 TodoResponse
+- [x] T031 [US1] 實作 GET /todos 端點於 src/api/todos.py: 取得所有待辦事項、回傳 200 與陣列
+- [x] T032 [US1] 實作 GET /todos/{id} 端點於 src/api/todos.py: 取得單一待辦事項、回傳 200 或 404
+- [x] T033 [US1] 實作 PUT /todos/{id} 端點於 src/api/todos.py: 更新待辦事項、回傳 200 或 404
+- [x] T034 [US1] 實作 DELETE /todos/{id} 端點於 src/api/todos.py: 刪除待辦事項、回傳 204 或 404
+- [x] T035 [US1] 註冊待辦事項路由器於 src/main.py: app.include_router(todos.router)
+- [x] T036 [US1] 新增待辦事項端點錯誤處理於 src/api/todos.py: 針對 400、404、500 使用 HTTPException
+- [x] T037 [US1] 驗證 Pydantic 驗證錯誤於 src/api/todos.py: 確保無效輸入回傳友善的錯誤訊息
 
 **TDD 檢查點**: 執行 pytest - 所有 User Story 1 測試應該通過 (綠燈)。測試覆蓋率應 >85%。
 

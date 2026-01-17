@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "todo-api"
+version = "1.0.0"
+description = "具備可觀測性的 RESTful API 待辦事項系統"
+authors = ["TODO API Team"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.128.0"
+uvicorn = {extras = ["standard"], version = "^0.40.0"}
+pydantic = "^2.12.5"
+prometheus-client = "^0.24.1"
+structlog = "^25.5.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+pytest-asyncio = "^1.3.0"
+httpx = "^0.28.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
