@@ -111,10 +111,7 @@ def test_update_todo_both_fields(store):
     """Test updating both title and completed status."""
     created = store.create(TodoCreate(title="Old", completed=False))
 
-    updated = store.update(
-        created.id,
-        TodoUpdate(title="New", completed=True)
-    )
+    updated = store.update(created.id, TodoUpdate(title="New", completed=True))
 
     assert updated is not None
     assert updated.title == "New"

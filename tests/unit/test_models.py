@@ -155,11 +155,7 @@ def test_todo_response_requires_all_fields():
 @pytest.mark.unit
 def test_todo_response_from_dict():
     """Test TodoResponse can be created from dictionary."""
-    data = {
-        "id": "456",
-        "title": "From Dict",
-        "completed": True
-    }
+    data = {"id": "456", "title": "From Dict", "completed": True}
 
     response = TodoResponse(**data)
 

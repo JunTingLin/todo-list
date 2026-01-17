@@ -110,26 +110,26 @@
 
 > **憲章要求: 測試先行** - 以下測試必須在實作前撰寫,並驗證測試失敗(紅燈階段)
 
-- [ ] T038 [P] [US2] 撰寫 X-Request-ID 標頭契約測試於 tests/contract/test_request_id.py: 驗證回應包含 X-Request-ID 標頭
-- [ ] T039 [P] [US2] 撰寫自訂 request_id 契約測試於 tests/contract/test_request_id.py: 送出自訂 X-Request-ID，驗證回傳相同 ID
-- [ ] T040 [P] [US2] 撰寫自動產生 request_id 契約測試於 tests/contract/test_request_id.py: 不送出 X-Request-ID，驗證回傳 UUID 格式
-- [ ] T041 [P] [US2] 撰寫日誌記錄整合測試於 tests/integration/test_logging_integration.py: 擷取標準輸出，驗證 JSON 日誌格式包含所有必要欄位
-- [ ] T042 [P] [US2] 撰寫 request_id 追蹤整合測試於 tests/integration/test_logging_integration.py: 驗證 request_id 同時出現於日誌與回應中
+- [x] T038 [P] [US2] 撰寫 X-Request-ID 標頭契約測試於 tests/contract/test_request_id.py: 驗證回應包含 X-Request-ID 標頭
+- [x] T039 [P] [US2] 撰寫自訂 request_id 契約測試於 tests/contract/test_request_id.py: 送出自訂 X-Request-ID，驗證回傳相同 ID
+- [x] T040 [P] [US2] 撰寫自動產生 request_id 契約測試於 tests/contract/test_request_id.py: 不送出 X-Request-ID，驗證回傳 UUID 格式
+- [x] T041 [P] [US2] 撰寫日誌記錄整合測試於 tests/integration/test_logging_integration.py: 擷取標準輸出，驗證 JSON 日誌格式包含所有必要欄位
+- [x] T042 [P] [US2] 撰寫 request_id 追蹤整合測試於 tests/integration/test_logging_integration.py: 驗證 request_id 同時出現於日誌與回應中
 
 **TDD 檢查點**: 執行 pytest - 所有 US2 測試應該失敗 (紅燈)。
 
 ### User Story 2 實作
 
-- [ ] T043 [US2] 實作請求 ID 產生於 src/middleware/request_id.py: 從標頭提取或產生 UUID v4
-- [ ] T044 [US2] 實作請求 ID 回應標頭於 src/middleware/request_id.py: 新增 X-Request-ID 至回應標頭
-- [ ] T045 [US2] 綁定 request_id 至請求狀態於 src/middleware/request_id.py: request.state.request_id 供處理器存取
-- [ ] T046 [US2] 設定 structlog 處理器於 src/middleware/logging.py: add_log_level、TimeStamper(fmt="iso")、JSONRenderer
-- [ ] T047 [US2] 實作日誌中介軟體於 src/middleware/logging.py: 記錄請求開始、完成、錯誤及所有必要欄位
-- [ ] T048 [US2] 綁定 request_id 至 structlog 上下文於 src/middleware/logging.py: 自動在所有日誌中包含 request_id
-- [ ] T049 [US2] 註冊 request_id 中介軟體於 src/main.py: 新增至中介軟體堆疊 (在路由之前)
-- [ ] T050 [US2] 註冊日誌中介軟體於 src/main.py: 新增至中介軟體堆疊 (在 request_id 之後)
-- [ ] T051 [US2] 新增錯誤日誌記錄於 src/middleware/logging.py: 捕捉例外、以錯誤層級記錄、包含堆疊追蹤
-- [ ] T052 [US2] 驗證日誌輸出格式於 src/middleware/logging.py: 確保 JSON 格式包含 event、request_id、timestamp、method、path、status_code、latency_ms
+- [x] T043 [US2] 實作請求 ID 產生於 src/middleware/request_id.py: 從標頭提取或產生 UUID v4
+- [x] T044 [US2] 實作請求 ID 回應標頭於 src/middleware/request_id.py: 新增 X-Request-ID 至回應標頭
+- [x] T045 [US2] 綁定 request_id 至請求狀態於 src/middleware/request_id.py: request.state.request_id 供處理器存取
+- [x] T046 [US2] 設定 structlog 處理器於 src/middleware/logging.py: add_log_level、TimeStamper(fmt="iso")、JSONRenderer
+- [x] T047 [US2] 實作日誌中介軟體於 src/middleware/logging.py: 記錄請求開始、完成、錯誤及所有必要欄位
+- [x] T048 [US2] 綁定 request_id 至 structlog 上下文於 src/middleware/logging.py: 自動在所有日誌中包含 request_id
+- [x] T049 [US2] 註冊 request_id 中介軟體於 src/main.py: 新增至中介軟體堆疊 (在路由之前)
+- [x] T050 [US2] 註冊日誌中介軟體於 src/main.py: 新增至中介軟體堆疊 (在 request_id 之後)
+- [x] T051 [US2] 新增錯誤日誌記錄於 src/middleware/logging.py: 捕捉例外、以錯誤層級記錄、包含堆疊追蹤
+- [x] T052 [US2] 驗證日誌輸出格式於 src/middleware/logging.py: 確保 JSON 格式包含 event、request_id、timestamp、method、path、status_code、latency_ms
 
 **TDD 檢查點**: 執行 pytest - 所有 User Story 2 測試應該通過 (綠燈)。
 
@@ -147,26 +147,26 @@
 
 > **憲章要求: 測試先行** - 以下測試必須在實作前撰寫,並驗證測試失敗(紅燈階段)
 
-- [ ] T053 [P] [US3] 撰寫 GET /health 契約測試於 tests/contract/test_health_api.py: 驗證 200 狀態、status="healthy"、timestamp 欄位
-- [ ] T054 [P] [US3] 撰寫 GET /metrics 契約測試於 tests/contract/test_metrics_api.py: 驗證 200 狀態、text/plain 內容類型、Prometheus 格式
-- [ ] T055 [P] [US3] 撰寫指標收集整合測試於 tests/integration/test_metrics_integration.py: 發送請求，驗證計數器遞增
-- [ ] T056 [P] [US3] 撰寫直方圖桶整合測試於 tests/integration/test_metrics_integration.py: 驗證延遲直方圖記錄請求
-- [ ] T057 [P] [US3] 撰寫低基數標籤整合測試於 tests/integration/test_metrics_integration.py: 驗證標籤中不包含 request_id 或 user_id
+- [x] T053 [P] [US3] 撰寫 GET /health 契約測試於 tests/contract/test_health_api.py: 驗證 200 狀態、status="healthy"、timestamp 欄位
+- [x] T054 [P] [US3] 撰寫 GET /metrics 契約測試於 tests/contract/test_metrics_api.py: 驗證 200 狀態、text/plain 內容類型、Prometheus 格式
+- [x] T055 [P] [US3] 撰寫指標收集整合測試於 tests/integration/test_metrics_integration.py: 發送請求，驗證計數器遞增
+- [x] T056 [P] [US3] 撰寫直方圖桶整合測試於 tests/integration/test_metrics_integration.py: 驗證延遲直方圖記錄請求
+- [x] T057 [P] [US3] 撰寫低基數標籤整合測試於 tests/integration/test_metrics_integration.py: 驗證標籤中不包含 request_id 或 user_id
 
 **TDD 檢查點**: 執行 pytest - 所有 US3 測試應該失敗 (紅燈)。
 
 ### User Story 3 實作
 
-- [ ] T058 [P] [US3] 建立健康檢查路由器於 src/api/health.py: 實作 GET /health 端點回傳狀態與時間戳記
-- [ ] T059 [P] [US3] 建立指標端點於 src/api/metrics.py: 透過 GET /metrics 暴露 Prometheus 指標
-- [ ] T060 [US3] 初始化 Prometheus 計數器於 src/middleware/metrics.py: http_requests_total 帶標籤 (method, path, status)
-- [ ] T061 [US3] 初始化 Prometheus 直方圖於 src/middleware/metrics.py: http_request_duration_seconds 帶標籤 (method, path) 與自訂桶
-- [ ] T062 [US3] 實作指標中介軟體於 src/middleware/metrics.py: 記錄每個請求的計數與延遲
-- [ ] T063 [US3] 設定直方圖桶於 src/middleware/metrics.py: (0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1.0)
-- [ ] T064 [US3] 正規化路徑標籤於 src/middleware/metrics.py: 將 {id} 替換為佔位符以避免高基數
-- [ ] T065 [US3] 註冊健康檢查路由器於 src/main.py: app.include_router(health.router)
-- [ ] T066 [US3] 註冊指標路由器於 src/main.py: app.include_router(metrics.router)
-- [ ] T067 [US3] 註冊指標中介軟體於 src/main.py: 新增至中介軟體堆疊
+- [x] T058 [P] [US3] 建立健康檢查路由器於 src/api/health.py: 實作 GET /health 端點回傳狀態與時間戳記
+- [x] T059 [P] [US3] 建立指標端點於 src/api/metrics.py: 透過 GET /metrics 暴露 Prometheus 指標
+- [x] T060 [US3] 初始化 Prometheus 計數器於 src/middleware/metrics.py: http_requests_total 帶標籤 (method, path, status)
+- [x] T061 [US3] 初始化 Prometheus 直方圖於 src/middleware/metrics.py: http_request_duration_seconds 帶標籤 (method, path) 與自訂桶
+- [x] T062 [US3] 實作指標中介軟體於 src/middleware/metrics.py: 記錄每個請求的計數與延遲
+- [x] T063 [US3] 設定直方圖桶於 src/middleware/metrics.py: (0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1.0)
+- [x] T064 [US3] 正規化路徑標籤於 src/middleware/metrics.py: 將 {id} 替換為佔位符以避免高基數
+- [x] T065 [US3] 註冊健康檢查路由器於 src/main.py: app.include_router(health.router)
+- [x] T066 [US3] 註冊指標路由器於 src/main.py: app.include_router(metrics.router)
+- [x] T067 [US3] 註冊指標中介軟體於 src/main.py: 新增至中介軟體堆疊
 
 **TDD 檢查點**: 執行 pytest - 所有 User Story 3 測試應該通過 (綠燈)。
 

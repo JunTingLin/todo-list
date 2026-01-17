@@ -46,7 +46,7 @@ async def get_todo(todo_id: str):
     if todo is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Todo with id '{todo_id}' not found"
+            detail=f"Todo with id '{todo_id}' not found",
         )
 
     return todo
@@ -69,7 +69,7 @@ async def update_todo(todo_id: str, todo_update: TodoUpdate):
     if updated_todo is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Todo with id '{todo_id}' not found"
+            detail=f"Todo with id '{todo_id}' not found",
         )
 
     return updated_todo
@@ -91,7 +91,7 @@ async def delete_todo(todo_id: str):
     if not deleted:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Todo with id '{todo_id}' not found"
+            detail=f"Todo with id '{todo_id}' not found",
         )
 
     return None

@@ -109,8 +109,7 @@ def test_update_todo_returns_200_with_updated_data(client):
 
     # Update the todo
     response = client.put(
-        f"/todos/{todo_id}",
-        json={"title": "Updated Title", "completed": True}
+        f"/todos/{todo_id}", json={"title": "Updated Title", "completed": True}
     )
 
     assert response.status_code == 200
@@ -123,7 +122,9 @@ def test_update_todo_returns_200_with_updated_data(client):
 @pytest.mark.contract
 def test_update_todo_partial_update_title_only(client):
     """Test PUT /todos/{id} with only title update."""
-    create_response = client.post("/todos", json={"title": "Original", "completed": False})
+    create_response = client.post(
+        "/todos", json={"title": "Original", "completed": False}
+    )
     todo_id = create_response.json()["id"]
 
     response = client.put(f"/todos/{todo_id}", json={"title": "New Title"})

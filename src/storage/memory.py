@@ -21,7 +21,7 @@ class TodoStore:
             todo_dict = {
                 "id": todo_id,
                 "title": todo.title,
-                "completed": todo.completed
+                "completed": todo.completed,
             }
             self._todos[todo_id] = todo_dict
             return TodoResponse(**todo_dict)

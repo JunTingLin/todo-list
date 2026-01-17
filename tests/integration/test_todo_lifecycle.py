@@ -10,10 +10,9 @@ def test_full_todo_lifecycle(client):
     This verifies the entire CRUD flow works end-to-end.
     """
     # 1. CREATE: Create a new todo
-    create_response = client.post("/todos", json={
-        "title": "學習 FastAPI",
-        "completed": False
-    })
+    create_response = client.post(
+        "/todos", json={"title": "學習 FastAPI", "completed": False}
+    )
     assert create_response.status_code == 201
     todo = create_response.json()
     todo_id = todo["id"]
@@ -35,10 +34,9 @@ def test_full_todo_lifecycle(client):
     assert todos_list[0]["id"] == todo_id
 
     # 4. UPDATE: Update the todo's title and mark as completed
-    update_response = client.put(f"/todos/{todo_id}", json={
-        "title": "已完成學習 FastAPI",
-        "completed": True
-    })
+    update_response = client.put(
+        f"/todos/{todo_id}", json={"title": "已完成學習 FastAPI", "completed": True}
+    )
     assert update_response.status_code == 200
     updated_todo = update_response.json()
     assert updated_todo["id"] == todo_id

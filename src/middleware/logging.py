@@ -11,7 +11,7 @@ structlog.configure(
         structlog.contextvars.merge_contextvars,
         structlog.processors.add_log_level,
         structlog.processors.TimeStamper(fmt="iso"),
-        structlog.processors.JSONRenderer()
+        structlog.processors.JSONRenderer(),
     ],
     logger_factory=structlog.PrintLoggerFactory(),
 )
@@ -45,7 +45,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 method=request.method,
                 path=request.url.path,
                 status_code=response.status_code,
-                latency_ms=round(latency_ms, 2)
+                latency_ms=round(latency_ms, 2),
             )
 
             return response
@@ -61,6 +61,6 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 path=request.url.path,
                 latency_ms=round(latency_ms, 2),
                 error=str(exc),
-                exc_info=True
+                exc_info=True,
             )
             raise

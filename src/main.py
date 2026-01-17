@@ -4,13 +4,13 @@ from fastapi import FastAPI
 from src.middleware.request_id import RequestIDMiddleware
 from src.middleware.logging import LoggingMiddleware
 from src.middleware.metrics import MetricsMiddleware
-from src.api import todos
+from src.api import todos, health, metrics
 
 # Create FastAPI application
 app = FastAPI(
     title="TODO API",
     description="具備可觀測性的 RESTful API 待辦事項系統",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # Register middleware (order matters: last added = first executed)
@@ -21,6 +21,8 @@ app.add_middleware(RequestIDMiddleware)
 
 # Register routers
 app.include_router(todos.router)
+app.include_router(health.router)
+app.include_router(metrics.router)
 
 
 @app.get("/")
