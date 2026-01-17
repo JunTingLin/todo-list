@@ -1,50 +1,220 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+─────────────────────────────────────────────────────────────────────────────
+Version Change: Initial → 1.0.0
+Modified Principles: N/A (Initial creation)
+Added Sections:
+  - 核心原則 (Core Principles) - 6 principles
+  - 程式碼品質標準 (Code Quality Standards)
+  - 測試標準 (Testing Standards)
+  - 治理 (Governance)
+Removed Sections: N/A
+Templates Status:
+  ✅ .specify/templates/plan-template.md - Constitution Check section aligns
+  ✅ .specify/templates/spec-template.md - Requirements structure aligns
+  ✅ .specify/templates/tasks-template.md - Test-first workflow aligns
+Follow-up TODOs: None
+─────────────────────────────────────────────────────────────────────────────
+-->
 
-## Core Principles
+# TODO List 專案憲章
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## 核心原則
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. 可觀測性優先（Observability First）
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**每一個功能都必須是可觀測的。** 系統的每一次請求、操作、狀態變化都必須被記錄與追蹤。
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- **結構化日誌**：所有日誌必須使用結構化格式（如 JSON），包含必要的上下文資訊（request_id、timestamp、method、path、status_code、latency）
+- **請求追蹤**：每個請求必須有唯一識別碼（request_id），並在整個處理鏈路中傳遞與記錄
+- **指標量測**：系統必須暴露可量測的指標（請求次數、延遲分布、錯誤率），並避免高基數標籤
+- **錯誤可追溯**：錯誤發生時必須記錄完整上下文，但對外 API 不得洩漏內部實作細節
+- **健康檢查**：每個服務必須提供健康檢查端點
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+**理由**：在微服務架構中，可觀測性是系統可維運性的基礎。無法觀測的系統無法除錯、無法優化、無法信賴。
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+---
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### II. 測試先行（Test-First，不可妥協）
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**功能實作前必須先撰寫測試。** 嚴格遵循測試驅動開發（TDD）的紅燈-綠燈-重構循環。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- 測試必須先於實作撰寫
+- 測試必須先失敗（紅燈），證明測試有效
+- 實作必須讓測試通過（綠燈）
+- 通過後進行重構，保持測試持續通過
+- **違反此原則的程式碼不得合併**
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+**理由**：測試先行確保每一行程式碼都有明確的目的與驗證方式，避免過度設計與技術債累積。
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+---
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### III. 契約測試與整合測試
+
+**服務之間的互動必須有契約測試保護。** 系統的關鍵使用者情境必須有整合測試覆蓋。
+
+以下情況**必須**撰寫契約測試：
+- 新增 API 端點
+- 修改 API 契約（請求/回應格式）
+- 服務間通訊介面
+- 共享的資料模型或 schema
+
+以下情況**必須**撰寫整合測試：
+- 跨多個元件的使用者情境
+- 資料持久化流程
+- 外部系統整合
+- 關鍵業務流程的端到端驗證
+
+**理由**：單元測試無法保證元件整合後的正確性。契約測試確保服務界面穩定，整合測試確保系統整體行為符合預期。
+
+---
+
+### IV. 微服務單一職責
+
+**每個微服務只做一件事，並且做好。** 服務邊界必須清晰，職責必須明確。
+
+- 每個服務有明確的業務領域或技術職責
+- 服務之間透過明確定義的 API 契約通訊
+- 避免服務間的緊密耦合與循環依賴
+- 每個服務可以獨立部署、擴展、失敗
+- 資料所有權明確：每個服務擁有並管理自己的資料
+
+**理由**：單一職責降低複雜度，提高可維護性與可測試性，使系統更容易理解與演進。
+
+---
+
+### V. 程式碼簡潔性（Simplicity）
+
+**從簡單開始，拒絕過度設計。** 遵循 YAGNI（You Aren't Gonna Need It）原則。
+
+- 優先選擇最簡單可行的解決方案
+- 避免引入不必要的抽象層級
+- 避免引入未來可能需要但當前不需要的功能
+- 複雜性必須有充分理由與文件說明
+- 重構優於一開始就設計複雜架構
+
+**理由**：簡單的程式碼更容易理解、測試、維護。過度設計增加認知負擔與技術債。
+
+---
+
+### VI. 版本管理與破壞性變更
+
+**API 版本必須明確管理，破壞性變更必須謹慎處理。**
+
+- API 版本格式：`MAJOR.MINOR.PATCH`
+  - **MAJOR**：破壞性變更（不向下相容）
+  - **MINOR**：新增功能（向下相容）
+  - **PATCH**：錯誤修正或小幅改進（向下相容）
+- 破壞性變更必須：
+  - 提供遷移指南
+  - 保留舊版本支援一段時間（至少一個版本週期）
+  - 在文件中明確標註棄用（deprecation）警告
+- 對外 API 契約變更必須經過審查與核准
+
+**理由**：明確的版本管理與變更控制確保服務演進不會破壞現有使用者，降低系統風險。
+
+---
+
+## 程式碼品質標準
+
+### 程式碼審查要求
+
+- 所有程式碼必須經過至少一位審查者核准
+- Pull Request 必須包含：
+  - 清晰的變更說明
+  - 對應的測試（如適用）
+  - 文件更新（如適用）
+- 審查者必須驗證：
+  - 測試覆蓋率充足
+  - 程式碼符合專案風格指南
+  - 無明顯效能或安全問題
+  - 可觀測性需求已滿足（日誌、指標）
+
+### 程式碼風格
+
+- 使用自動化工具維持一致的程式碼風格（linter、formatter）
+- 變數與函式命名必須清晰表達意圖
+- 函式保持簡短，單一職責
+- 複雜邏輯必須有註解說明
+
+### 錯誤處理
+
+- 不得忽略錯誤或異常
+- 錯誤必須被記錄（日誌）
+- 對外 API 錯誤訊息必須友善且不洩漏內部實作
+- 關鍵錯誤必須有對應的監控與告警
+
+---
+
+## 測試標準
+
+### 測試層級
+
+專案必須包含以下測試層級：
+
+1. **單元測試**（Unit Tests）
+   - 測試單一函式或類別的行為
+   - 快速執行，無外部依賴
+   - 高覆蓋率目標：關鍵業務邏輯 > 80%
+
+2. **契約測試**（Contract Tests）
+   - 驗證 API 契約（輸入/輸出格式）
+   - 確保服務介面穩定
+   - 每個對外 API 端點必須有契約測試
+
+3. **整合測試**（Integration Tests）
+   - 測試多個元件協作的情境
+   - 驗證關鍵使用者流程
+   - 每個使用者故事至少一個整合測試
+
+### 測試執行
+
+- 所有測試必須在本地可執行
+- CI/CD pipeline 必須執行所有測試
+- 測試失敗時不得合併程式碼
+- 測試必須可重複執行且結果穩定
+
+### 測試文件
+
+- 測試檔案命名清晰（如 `test_*.py`、`*_test.go`）
+- 測試案例有描述性的名稱
+- 複雜測試情境必須有註解說明
+
+---
+
+## 治理
+
+### 憲章修正程序
+
+- 憲章修正必須經過團隊討論與共識
+- 修正提案必須包含：
+  - 修正理由與背景
+  - 影響評估
+  - 遷移計畫（如適用）
+- 修正版本遵循語意化版本規則：
+  - **MAJOR**：移除或重新定義核心原則（破壞性變更）
+  - **MINOR**：新增原則或大幅擴充指導方針
+  - **PATCH**：釐清、用詞修正、非語意性改進
+
+### 合規審查
+
+- 所有 Pull Request 必須驗證憲章合規性
+- Code Review 時檢查：
+  - 測試先行原則是否遵循
+  - 可觀測性需求是否滿足
+  - 程式碼複雜性是否合理
+- 違反核心原則的程式碼不得合併
+
+### 版本管理
+
+本憲章採用語意化版本管理，每次修正更新版本號與修正日期。
+
+### 持續改進
+
+- 團隊定期（每季）審視憲章有效性
+- 收集實務經驗，調整原則與標準
+- 保持憲章實用性與適用性
+
+---
+
+**版本**：1.0.0 | **批准日期**：2026-01-17 | **最後修正**：2026-01-17
