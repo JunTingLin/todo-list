@@ -58,9 +58,68 @@ docker-compose up -d
 # Prometheus: http://localhost:9090
 # Grafana: http://localhost:3000 (admin/admin)
 
-# 3. 停止服務
+# 3. 查看 JSON 結構化日誌
+docker logs todo-api -f
+
+# 4. 停止服務
 docker-compose down
 ```
+
+### 📊 查看監控數據
+
+#### Prometheus (http://localhost:9090)
+
+在 Prometheus UI 的查詢框中輸入以下 PromQL 查詢：
+
+```promql
+# 每秒請求數 (QPS)
+rate(http_requests_total[1m])
+
+# P95 延遲
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+
+# 總請求數（按端點分組）
+sum by(method, path) (http_requests_total)
+
+# 錯誤率
+rate(http_requests_total{status=~"4xx|5xx"}[1m])
+```
+
+#### Grafana (http://localhost:3000)
+
+1. 使用帳密登入: `admin` / `admin`
+2. 存取 Dashboard：
+   - **方法 1（直接連結）**: http://localhost:3000/d/todo-api-dashboard
+   - **方法 2（手動導航）**: 點擊左側 "Dashboards" → 搜尋 "TODO API"
+   - **方法 3（手動匯入）**: 左側 "+" → "Import" → 上傳 `docker/grafana-dashboard.json`
+3. Dashboard 包含：
+   - 每秒請求數 (QPS)
+   - 總請求數
+   - P95/P99 延遲
+   - 端點狀態統計
+
+**Prometheus 資料源**已自動配置，無需手動設定！
+
+#### 查看 JSON 日誌
+
+```bash
+# 方法 1: 使用 docker logs 查看容器日誌
+docker logs todo-api -f | grep -E '^{'
+
+# 方法 2: 只看最新的 10 條 JSON 日誌
+docker logs todo-api 2>&1 | grep -E '^{' | tail -10
+
+# 方法 3: 格式化輸出
+docker logs todo-api 2>&1 | grep -E '^{' | tail -1 | python3 -m json.tool
+```
+
+日誌欄位說明：
+- `request_id`: 請求唯一識別碼
+- `method`: HTTP 方法 (GET, POST, PUT, DELETE)
+- `path`: API 路徑
+- `status_code`: HTTP 狀態碼
+- `latency_ms`: 請求處理延遲（毫秒）
+- `timestamp`: ISO 8601 格式時間戳記
 
 ## 📖 API 端點
 

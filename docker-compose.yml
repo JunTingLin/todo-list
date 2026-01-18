@@ -37,6 +37,9 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./docker/grafana-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./docker/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./docker/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/todo-api-dashboard.json
     networks:
       - monitoring
     depends_on:
