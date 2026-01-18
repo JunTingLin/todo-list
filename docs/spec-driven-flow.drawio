@@ -1,0 +1,158 @@
+<mxfile host="embed.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="29.3.2">
+  <diagram id="2dJ36TpUOYNeUIbIZATm" name="第 1 页">
+    <mxGraphModel dx="815" dy="444" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" value="&lt;b&gt;Spec Driven Vibe Coding 工作流程&lt;/b&gt;&lt;br&gt;需求轉化：Prompt → Spec → Code" vertex="1">
+          <mxGeometry height="50" width="400" x="350" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="prd" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="📄 PRD.md&lt;br&gt;(原始需求)" vertex="1">
+          <mxGeometry height="60" width="120" x="90" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="tech" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="📄 tech-overview.md&lt;br&gt;(技術棧)" vertex="1">
+          <mxGeometry height="60" width="140" x="70" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="step1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="1️⃣ /speckit.constitution&lt;br&gt;&lt;b&gt;制定治理原則&lt;/b&gt;&lt;br&gt;可觀測性優先、測試先行" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="constitution_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#e1d5e7;strokeColor=#9673a6;" value="constitution.md" vertex="1">
+          <mxGeometry height="40" width="100" x="520" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow1b" edge="1" parent="1" source="step1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="constitution_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="2️⃣ /speckit.specify&lt;br&gt;&lt;b&gt;需求規格轉化&lt;/b&gt;&lt;br&gt;Stories+FR+GWT+Success" vertex="1"><mxGeometry height="70" width="200" x="300" y="200" as="geometry" /></mxCell>
+        <mxCell id="spec_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#e1d5e7;strokeColor=#9673a6;" value="spec.md" vertex="1">
+          <mxGeometry height="40" width="100" x="520" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_prd_to_specify" edge="1" parent="1" source="prd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;" target="step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2b" edge="1" parent="1" source="step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="spec_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="3️⃣ /speckit.clarify&lt;br&gt;&lt;b&gt;釐清模糊需求&lt;/b&gt;&lt;br&gt;消除歧義、補充細節" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow3" edge="1" parent="1" source="step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="4️⃣ 生成測試案例&lt;br&gt;&lt;b&gt;詳細測試步驟&lt;/b&gt;&lt;br&gt;具體測試資料+預期結果" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="testcase_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#e1d5e7;strokeColor=#9673a6;" value="testcase.md" vertex="1">
+          <mxGeometry height="40" width="100" x="520" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow4" edge="1" parent="1" source="step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="step4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow4b" edge="1" parent="1" source="step4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="testcase_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="5️⃣ 驗證測試案例&lt;br&gt;&lt;b&gt;交叉檢查&lt;/b&gt;&lt;br&gt;testcase ↔ spec 一致性" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow5" edge="1" parent="1" source="step4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="step5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="validate_link" edge="1" parent="1" source="step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#999999;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="spec_out">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="650" y="335" />
+              <mxPoint x="650" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="step6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="6️⃣ /speckit.plan&lt;br&gt;&lt;b&gt;技術設計&lt;/b&gt;&lt;br&gt;架構、元件、API 設計" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="plan_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#e1d5e7;strokeColor=#9673a6;" value="plan.md" vertex="1">
+          <mxGeometry height="40" width="100" x="520" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6" edge="1" parent="1" source="step5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="step6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6b" edge="1" parent="1" source="step6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="plan_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="7️⃣ /speckit.tasks&lt;br&gt;&lt;b&gt;任務分解&lt;/b&gt;&lt;br&gt;可執行的開發任務清單" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="tasks_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#e1d5e7;strokeColor=#9673a6;" value="tasks.md" vertex="1">
+          <mxGeometry height="40" width="100" x="520" y="705" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow7" edge="1" parent="1" source="step6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="step7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow7b" edge="1" parent="1" source="step7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="tasks_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="8️⃣ /speckit.implement&lt;br&gt;&lt;b&gt;實作程式碼&lt;/b&gt;&lt;br&gt;TDD: 測試 → 實作 → 重構" vertex="1">
+          <mxGeometry height="70" width="200" x="300" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="code_out" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#f8cecc;strokeColor=#b85450;" value="src/&lt;br&gt;程式碼" vertex="1">
+          <mxGeometry height="50" width="100" x="520" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow8" edge="1" parent="1" source="step7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="step8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow8b" edge="1" parent="1" source="step8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="code_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="loop" edge="1" parent="1" source="step8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=2;dashed=1;" target="step2" value="下一個功能&lt;br&gt;Loop">
+          <mxGeometry relative="1" x="0.1001" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="250" y="835" />
+              <mxPoint x="250" y="235" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="&lt;b&gt;圖例&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="60" x="700" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="legend1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="700" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="legend1_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="Spec-Kit Skill" vertex="1">
+          <mxGeometry height="20" width="100" x="740" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="legend2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="700" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="legend2_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="測試情境步驟" vertex="1">
+          <mxGeometry height="20" width="100" x="740" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="legend3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="700" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="legend3_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="實作階段" vertex="1">
+          <mxGeometry height="20" width="100" x="740" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="legend4" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#e1d5e7;strokeColor=#9673a6;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="700" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="legend4_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="輸出產物" vertex="1">
+          <mxGeometry height="20" width="100" x="740" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="legend5" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="700" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="legend5_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="輸入參考文件" vertex="1">
+          <mxGeometry height="20" width="100" x="740" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="tech_to_plan" edge="1" parent="1" source="tech" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="step6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="const_to_spec" edge="1" parent="1" source="step1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="watermark" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="made by draw.io MCP" vertex="1">
+          <mxGeometry height="30" width="170" x="730" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;spacingLeft=10;" value="&lt;b&gt;需求轉化關鍵&lt;/b&gt;&lt;br&gt;&lt;br&gt;✅ PRD → Spec (Stories+FR+GWT+Success)&lt;br&gt;✅ Spec → Testcase (詳細測試步驟)&lt;br&gt;✅ Spec → Plan (技術設計)&lt;br&gt;✅ Plan → Tasks (可執行任務)" vertex="1"><mxGeometry height="110" width="290" x="665" y="520" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

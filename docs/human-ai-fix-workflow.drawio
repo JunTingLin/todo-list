@@ -1,0 +1,111 @@
+<mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;人機協作：AI 程式錯誤/資安疑慮修正流程&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="30" width="500" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1 -->
+        <mxCell id="step1" value="&lt;b&gt;👤 Human: 發現問題&lt;/b&gt;&lt;br&gt;(程式有誤 / 資安疑慮)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="325" y="100" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Decision -->
+        <mxCell id="decision" value="&lt;b&gt;👤 Human: 檢查 Spec&lt;/b&gt;&lt;br&gt;&lt;br&gt;Spec 有涵蓋此情境嗎？&lt;br&gt;Spec 夠清楚嗎？&lt;br&gt;缺少資安需求嗎？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="200" width="300" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Left Path: Spec 缺陷 -->
+        <mxCell id="left_label" value="&lt;b&gt;路徑 A: Spec 缺陷&lt;/b&gt;&lt;br&gt;(含資安疑慮)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="175" y="350" width="150" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="left_step1" value="&lt;b&gt;👤 Prompt&lt;/b&gt;&lt;br&gt;更新/補充 spec.md&lt;br&gt;「請加入資安需求...」" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="170" y="410" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="left_step2" value="&lt;b&gt;🤖 AI&lt;/b&gt;&lt;br&gt;更新 spec.md&lt;br&gt;+ testcase.md" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="170" y="510" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="left_step3" value="&lt;b&gt;🤖 AI&lt;/b&gt;&lt;br&gt;重新生成&lt;br&gt;plan/tasks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="170" y="600" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Right Path: Implement 錯誤 -->
+        <mxCell id="right_label" value="&lt;b&gt;路徑 B: Implement 錯誤&lt;/b&gt;&lt;br&gt;(Spec 正確但實作錯)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="540" y="350" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="right_step1" value="&lt;b&gt;👤 Prompt&lt;/b&gt;&lt;br&gt;重新 implement&lt;br&gt;「Spec 要求 201&lt;br&gt;但程式碼寫成 200」" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="550" y="410" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Common Step -->
+        <mxCell id="common_step" value="&lt;b&gt;🤖 AI: TDD 實作&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1"><mxGeometry x="320" y="710" width="260" height="60" as="geometry" /></mxCell>
+
+        <!-- Success -->
+        <mxCell id="success" value="&lt;b&gt;✅ 測試全部通過&lt;/b&gt;&lt;br&gt;Merge to Main" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="320" y="820" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="step1" target="decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow_left" value="Spec 不清楚&lt;br&gt;或缺漏" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontColor=#d79b00;" edge="1" parent="1" source="decision" target="left_step1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="260" />
+              <mxPoint x="250" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_right" value="Spec 清楚&lt;br&gt;但實作錯" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontColor=#6c8ebf;" edge="1" parent="1" source="decision" target="right_step1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="260" />
+              <mxPoint x="630" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_l1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="left_step1" target="left_step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow_l2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="left_step2" target="left_step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow_l3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="left_step3" target="common_step">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_r1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="right_step1" target="common_step">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_final" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="common_step" target="success">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="watermark" value="Spec-Driven Development" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="380" y="870" width="140" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>

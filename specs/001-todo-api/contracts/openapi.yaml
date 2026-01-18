@@ -1,0 +1,430 @@
+openapi: 3.0.3
+info:
+  title: TODO API with Observability
+  description: |
+    具備可觀測性的 TODO API 服務
+
+    本 API 提供待辦事項管理功能，並內建完整的可觀測性機制：
+    - 結構化 JSON 日誌
+    - Request ID 追蹤
+    - Prometheus 指標暴露
+    - 健康檢查端點
+
+    **關鍵特性**：
+    - 記憶體儲存（重啟後資料遺失）
+    - 無驗證/授權機制
+    - 專注於可觀測性展示
+  version: 1.0.0
+  contact:
+    name: API Support
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+
+tags:
+  - name: Todos
+    description: 待辦事項管理
+  - name: Health
+    description: 健康檢查
+  - name: Metrics
+    description: Prometheus 指標
+
+paths:
+  /todos:
+    get:
+      summary: 查詢所有待辦事項
+      description: 回傳系統中所有待辦事項的清單。當無待辦事項時回傳空陣列。
+      operationId: listTodos
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/RequestIDHeader'
+      responses:
+        '200':
+          description: 成功回傳待辦事項清單
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestIDHeader'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoResponse'
+              examples:
+                withTodos:
+                  summary: 有待辦事項
+                  value:
+                    - id: "1"
+                      title: "購買牛奶"
+                      completed: false
+                    - id: "2"
+                      title: "完成報告"
+                      completed: true
+                emptyList:
+                  summary: 無待辦事項
+                  value: []
+
+    post:
+      summary: 建立待辦事項
+      description: 建立一個新的待辦事項。title 為必填欄位，completed 預設為 false。
+      operationId: createTodo
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/RequestIDHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreate'
+            examples:
+              minimal:
+                summary: 最小必填欄位
+                value:
+                  title: "購買牛奶"
+              withCompleted:
+                summary: 包含完成狀態
+                value:
+                  title: "完成報告"
+                  completed: false
+      responses:
+        '201':
+          description: 成功建立待辦事項
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestIDHeader'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+              example:
+                id: "1"
+                title: "購買牛奶"
+                completed: false
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /todos/{id}:
+    get:
+      summary: 查詢單一待辦事項
+      description: 透過 ID 查詢特定的待辦事項。
+      operationId: getTodo
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/TodoID'
+        - $ref: '#/components/parameters/RequestIDHeader'
+      responses:
+        '200':
+          description: 成功回傳待辦事項
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestIDHeader'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+              example:
+                id: "1"
+                title: "購買牛奶"
+                completed: false
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+    put:
+      summary: 更新待辦事項
+      description: 更新待辦事項的標題或完成狀態。至少需提供一個欄位。
+      operationId: updateTodo
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/TodoID'
+        - $ref: '#/components/parameters/RequestIDHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoUpdate'
+            examples:
+              updateTitle:
+                summary: 更新標題
+                value:
+                  title: "購買有機牛奶"
+              updateCompleted:
+                summary: 標記為已完成
+                value:
+                  completed: true
+              updateBoth:
+                summary: 同時更新標題與狀態
+                value:
+                  title: "購買有機牛奶"
+                  completed: true
+      responses:
+        '200':
+          description: 成功更新待辦事項
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestIDHeader'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+              example:
+                id: "1"
+                title: "購買有機牛奶"
+                completed: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+    delete:
+      summary: 刪除待辦事項
+      description: 刪除指定的待辦事項。刪除後無法復原。
+      operationId: deleteTodo
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/TodoID'
+        - $ref: '#/components/parameters/RequestIDHeader'
+      responses:
+        '204':
+          description: 成功刪除待辦事項
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestIDHeader'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /health:
+    get:
+      summary: 健康檢查
+      description: 檢查服務是否正常運行。
+      operationId: healthCheck
+      tags:
+        - Health
+      parameters:
+        - $ref: '#/components/parameters/RequestIDHeader'
+      responses:
+        '200':
+          description: 服務健康
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestIDHeader'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2026-01-18T10:30:45.123456Z"
+
+  /metrics:
+    get:
+      summary: Prometheus 指標
+      description: |
+        暴露 Prometheus 格式的系統指標，包括：
+        - http_requests_total: HTTP 請求總次數
+        - http_request_duration_seconds: HTTP 請求延遲分布
+      operationId: getMetrics
+      tags:
+        - Metrics
+      responses:
+        '200':
+          description: Prometheus 格式指標
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |
+                # HELP http_requests_total Total HTTP requests
+                # TYPE http_requests_total counter
+                http_requests_total{method="GET",path="/todos",status="2xx"} 1234
+                # HELP http_request_duration_seconds HTTP request latency
+                # TYPE http_request_duration_seconds histogram
+                http_request_duration_seconds_bucket{method="GET",path="/todos",le="0.1"} 1200
+
+components:
+  parameters:
+    TodoID:
+      name: id
+      in: path
+      required: true
+      description: 待辦事項的唯一識別碼
+      schema:
+        type: string
+        example: "1"
+
+    RequestIDHeader:
+      name: X-Request-ID
+      in: header
+      required: false
+      description: |
+        請求追蹤識別碼（UUID 格式）。
+        - 若提供，系統將使用該值
+        - 若未提供，系統自動產生並在回應標頭中回傳
+      schema:
+        type: string
+        format: uuid
+        example: "550e8400-e29b-41d4-a716-446655440000"
+
+  headers:
+    RequestIDHeader:
+      description: 請求追蹤識別碼（UUID 格式）
+      schema:
+        type: string
+        format: uuid
+        example: "550e8400-e29b-41d4-a716-446655440000"
+
+  schemas:
+    TodoCreate:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: 待辦事項標題
+          example: "購買牛奶"
+        completed:
+          type: boolean
+          default: false
+          description: 完成狀態
+          example: false
+
+    TodoUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: 待辦事項標題
+          example: "購買有機牛奶"
+        completed:
+          type: boolean
+          description: 完成狀態
+          example: true
+      minProperties: 1
+
+    TodoResponse:
+      type: object
+      required:
+        - id
+        - title
+        - completed
+      properties:
+        id:
+          type: string
+          description: 唯一識別碼（系統自動生成）
+          example: "1"
+        title:
+          type: string
+          description: 待辦事項標題
+          example: "購買牛奶"
+        completed:
+          type: boolean
+          description: 完成狀態
+          example: false
+
+    ErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          oneOf:
+            - type: string
+              description: 錯誤訊息
+              example: "待辦事項不存在"
+            - type: array
+              description: 驗證錯誤詳情（Pydantic 格式）
+              items:
+                type: object
+                properties:
+                  loc:
+                    type: array
+                    items:
+                      type: string
+                    example: ["body", "title"]
+                  msg:
+                    type: string
+                    example: "標題不得為空白字串"
+                  type:
+                    type: string
+                    example: "value_error"
+
+  responses:
+    BadRequest:
+      description: 請求格式錯誤或驗證失敗
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestIDHeader'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            missingTitle:
+              summary: 缺少必填欄位
+              value:
+                detail:
+                  - loc: ["body", "title"]
+                    msg: "field required"
+                    type: "value_error.missing"
+            emptyTitle:
+              summary: 空白標題
+              value:
+                detail:
+                  - loc: ["body", "title"]
+                    msg: "標題不得為空白字串"
+                    type: "value_error"
+
+    NotFound:
+      description: 資源不存在
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestIDHeader'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            detail: "待辦事項不存在"
+
+    InternalError:
+      description: 伺服器內部錯誤
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestIDHeader'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            detail: "系統發生錯誤，請稍後再試"
+
+  securitySchemes: {}
+
+security: []
