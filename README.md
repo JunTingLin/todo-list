@@ -2,6 +2,10 @@
 
 一個展示可觀測性最佳實踐的 RESTful API 待辦事項管理系統。
 
+> **注意**: 本專案採用 **Specification-Driven Development (SDD)** 方法論開發。
+>
+![Spec-Driven Development Flow](docs/spec-driven-flow.png)
+
 ## 🎯 專案特色
 
 - ✅ **完整的 CRUD 操作**: 建立、查詢、更新、刪除待辦事項
@@ -254,14 +258,15 @@ todo-list/
 4. 確保測試通過: `poetry run pytest`
 5. 檢查覆蓋率: `poetry run pytest --cov=src`
 
-## 📄 授權
-
-本專案為教學示範專案。
 
 ## 🔗 相關文件
-
+### SDD 規格文件
 - [功能規格](specs/001-todo-api/spec.md)
 - [實作計畫](specs/001-todo-api/plan.md)
 - [任務清單](specs/001-todo-api/tasks.md)
 - [測試案例](specs/001-todo-api/testcase.md)
 - [快速開始指南](specs/001-todo-api/quickstart.md)
+
+### 架構圖表
+- [SDD 開發流程圖](docs/spec-driven-flow.png)
+- [人機協作除錯流程](docs/human-ai-fix-workflow.png)
